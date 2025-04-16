@@ -17,7 +17,7 @@ An **AI Agent** is any entity that:
 | Decision    | What it decides based on what it sees  | Checks if the room is too hot/cold     |
 | Action      | What it actually does                  | Turns on heater or AC accordingly      |
 
-![Understanding AI Agents](./2744b876-99ba-4013-9552-52d2edd76dc2.png)
+
 
 ---
 
@@ -36,7 +36,7 @@ A **recruitment bot** that:
 2. Filters based on skills (decision)
 3. Sends interview invites (action)
 
-![Agentic AI](./6193d77b-bfba-4951-b926-bde6d53df19b.png)
+
 
 ---
 
@@ -52,7 +52,7 @@ Understanding different types of agents helps in designing better AI systems. He
 | 💸 Utility-Based Agent | Considers **multiple outcomes and their utility/value**                     | Shopping assistant maximizing deals|
 | 📈 Learning Agent      | Learns and improves performance over time                                   | AI playing chess/self-learning bot |
 
-![Types of AI Agents](./36f28ec0-4147-4559-82b1-b57fb94673a3.png)
+
 
 ---
 
