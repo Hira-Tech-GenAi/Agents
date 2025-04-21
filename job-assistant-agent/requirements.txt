@@ -4,4 +4,3 @@ langchain-google-genai>=0.0.5
 python-dotenv>=1.0.0
 PyMuPDF>=1.23.0
 pandas>=2.0.0
-openpyxl>=3.1.0 
