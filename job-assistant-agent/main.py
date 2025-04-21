@@ -126,7 +126,7 @@ st.set_page_config(page_title="🎯 Job Application Assistant", layout="centered
 st.title("Intelligent Job Application Assistant")
 
 # Display main image
-load_image("bot-writing.jpg", width=150)
+load_image("bot-writing.jpg", width=250)
 
 st.markdown("""
 Welcome! 👋  
