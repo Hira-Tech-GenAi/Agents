@@ -2,12 +2,12 @@ import streamlit as st #type: ignore
 from langchain_google_genai import GoogleGenerativeAI # type: ignore
 from langchain.agents import  initialize_agent, AgentType, Tool # type: ignore
 from langchain.memory import ConversationBufferMemory # type: ignore
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 import os
 import re
 import fitz #type: ignore # PyMuPDF for PDF processing
 from typing import Dict, Optional, Any
-import pandas as pd
+import pandas as pd  # type: ignore
 import io
 
 # Load environment variables
