@@ -111,7 +111,7 @@ agent = initialize_agent(
 st.set_page_config(page_title="🎯 Job Application Assistant", layout="centered")
 st.title("Intelligent Job Application Assistant")
 
-load_image("bot-writing.jpg", width=250)
+load_image("bot-writing.jpg", width=150)
 
 st.markdown("""
 Welcome! 👋  
