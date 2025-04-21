@@ -36,25 +36,48 @@ memory = ConversationBufferMemory(
     return_messages=True
 )
 
-application_info: Dict[str, Optional[str]] = {
-    "name": None,
-    "email": None,
-    "skills": None
-}
+def extract_info_from_cv(text: str) -> Dict[str, Optional[str]]:
+    info: Dict[str, Optional[str]] = {
+        "name": None,
+        "email": None,
+        "skills": None
+    }
 
-def extract_application_info(text: str) -> str:
-    name_match = re.search(r"(?:my name is|i am)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)", text, re.IGNORECASE)
-    email_match = re.search(r"\b[\w\.-]+@[\w\.-]+\.\w+\b", text)
-    skills_match = re.search(r"(?:skills are|i know|i can use)\s+(.+)", text, re.IGNORECASE)
+    lines = text.splitlines()
 
-    if name_match:
-        application_info["name"] = name_match.group(1).title()
+    # 🎯 Name extraction (first 10 lines)
+    for line in lines[:10]:
+        line = line.strip()
+        if not line or line.isupper() or len(line.split()) > 4:
+            continue
+        name_match = re.search(r"^(?:name\s*[:\-]?\s*)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})$", line, re.IGNORECASE)
+        if name_match:
+            info["name"] = name_match.group(1).title()
+            break
+
+    # 📧 Email extraction (valid, real-looking emails only)
+    email_match = re.search(
+        r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b",
+        text
+    )
     if email_match:
-        application_info["email"] = email_match.group(0)
-    if skills_match:
-        application_info["skills"] = skills_match.group(1).strip()
+        info["email"] = email_match.group(0)
 
-    return "Got it. Let me check what else I need."
+    # 🛠️ Skills extraction (multiple formats)
+    skills_section = re.search(
+        r"(skills|technical skills|expertise)[:\-]?\s*\n*(.+?)(?=\n\n|\n[A-Z][^\n]*:|\Z)",
+        text,
+        re.IGNORECASE | re.DOTALL
+    )
+    if skills_section:
+        # Remove bullet points, symbols, and join lines
+        raw_skills = skills_section.group(2)
+        cleaned_skills = re.sub(r"[-•✓●•→]+", "", raw_skills)
+        cleaned_skills = " ".join(line.strip() for line in cleaned_skills.splitlines() if line.strip())
+        info["skills"] = cleaned_skills.strip()
+
+    return info
+
 
 def extract_text_from_pdf(uploaded_file) -> str:
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
